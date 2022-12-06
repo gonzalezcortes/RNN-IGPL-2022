@@ -3,3 +3,5 @@ for i in range(100):
 
 
 a = 2
+
+a = 3
