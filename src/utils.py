@@ -1,34 +1,23 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
+import time 
 
 class preprocessing:
 
-    def norma(a):
-        #Verificar
-        total_fx = lambda data: 2*((data-np.min(data, axis=0))/(np.max(data, axis=0)-np.min(data, axis=0)))-1
-        return total_fx(a)
+    def norma(a, zero_condition):
+        if zero_condition == True:
+            total_fx = lambda data: (a-np.min(data, axis=0))/(np.max(data, axis=0)-np.min(data, axis=0))
+            return total_fx(a)
+        else:
+            total_fx = lambda data: 2*((data-np.min(data, axis=0))/(np.max(data, axis=0)-np.min(data, axis=0)))-1
+            return total_fx(a)
 
     def get_steps(close, volume):
-        #Optimizar
-        data=[]
+        close, volume = np.array(close), np.array(volume)
         n=len(close)
-        for i in range(10,n):
-            if i != 'null':
-                ci0 = close[i]
-                ci1 = close[i-1]
-                ci2 = close[i-2]
-                ci3 = close[i-3]
-                ci4 = close[i-4]
-                #vi0 = volume[i]
-                vi1 = volume[i-1]
-                vi2 = volume[i-2]
-                vi3 = volume[i-3]
-                vi4 = volume[i-4]
-                a = np.array([vi4,vi3,vi2,vi1,ci4,ci3,ci2,ci1,ci0])
-                data.append(a)
+        data = np.matrix([[volume[i-4],volume[i-3], volume[i-2], volume[i-1], close[i-4], close[i-3], close[i-2], close[i-1], close[i]] for i in range(10,n)])
 
-        data = np.matrix(data)
         X = data[:,[0,1,2,3,4,5,6,7]]
         y = data[:,8]
         return X, y
