@@ -25,7 +25,7 @@ learning_rate = 0.001
 
 input_size = 8
 hidden_n = 2
-n_layers = 1
+n_layers = 12
 n_class = 1
 dropout_prob = 0.2
 
@@ -33,7 +33,7 @@ lstm1 = model_LSTM_1(input_size, n_class, hidden_n, n_layers, dropout_prob)
 gru1 = model_GRU_1(input_size, n_class, hidden_n, n_layers, dropout_prob)
 lstm2 = model_LSTM_2(input_size, n_class, hidden_n, n_layers, dropout_prob)
 rnn1 = model_RNN_1(input_size, n_class, hidden_n, n_layers, dropout_prob)
-mlp1 = model_MLP_1(40, 40, "sigmoid")
+mlp1 = model_MLP_1(input_size, n_class, 40, 40, "sigmoid")
 
 silent_mode = True
 prediction_1, running_time1 = training.training_iteration(num_epochs, learning_rate, lstm1, X_train_tensors_final, X_test_tensors_final, y_train_tensors, silent_mode)
@@ -51,4 +51,6 @@ print("MSE RNN 1:",metrics.mse(y_test, prediction_4), "Running time: ", running_
 prediction_5, running_time5 = mlp1.training(num_epochs, learning_rate, X_train, y_train, X_test)
 print("MSE MLP 1:",metrics.mse(y_test, prediction_5), "Running time: ", running_time5)
 
-plotting.plot_simple_doble(y_test, prediction_5)
+#plotting.plot_simple_doble(y_test, prediction_5)
+
+plotting.plot_multiple([y_test,prediction_4, prediction_5])

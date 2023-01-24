@@ -3,11 +3,11 @@ import time
 np.random.seed(0)
 
 class model_MLP_1:
-    def __init__(self, n_ni, n_nj, activation):
+    def __init__(self, input_size, n_class, n_ni, n_nj, activation):
         self.n_ni, self.n_nj = int(n_ni), int(n_nj)
-        self.sw1 = np.matrix(2*np.random.random((8,n_ni)) - 1)
+        self.sw1 = np.matrix(2*np.random.random((input_size,n_ni)) - 1)
         self.sw2 = np.matrix(2*np.random.random((n_ni,n_nj)) - 1)
-        self.sw3 = np.matrix(2*np.random.random((n_nj,1)) - 1)
+        self.sw3 = np.matrix(2*np.random.random((n_nj,n_class)) - 1)
 
         self.act_fx_selection(activation)
         self.first_layer, self.second_layer, self.thrid_layer = None, None, None
