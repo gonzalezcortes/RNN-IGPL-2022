@@ -78,6 +78,7 @@ class plotting:
         plt.plot()
 
 class metrics:
+
     def mse(y_true, y_pred):
         y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
         return mean_squared_error(y_true, y_pred)
